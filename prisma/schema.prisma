@@ -21,18 +21,18 @@ enum Status {
 }
 
 model Task {
-  id            Int     @id @default(autoincrement())
+  id            String    @id @default(uuid())
   title         String
   description   String?
-  status        Status  @default(TO_DO)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  author    User?   @relation(fields: [authorId], references: [id])
-  authorId  Int?
+  status        Status    @default(TO_DO)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  author        User?     @relation(fields: [authorId], references: [id])
+  authorId      String?
 }
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
+  id    String      @id @default(uuid())
+  email String      @unique
   name  String?
   password String?
   tasks Task[]

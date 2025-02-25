@@ -15,7 +15,7 @@ export class TasksService {
     return this.prisma.task.findMany();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return this.prisma.task.findUnique({
       where: {
         id: id,
@@ -23,14 +23,14 @@ export class TasksService {
     });
   }
 
-  async update(id: number, updateTaskDto: UpdateTaskDto) {
+  async update(id: string, updateTaskDto: UpdateTaskDto) {
     return this.prisma.task.update({
       where: { id },
       data: updateTaskDto,
     });
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return this.prisma.task.delete({
       where: { id },
     });

@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  HttpStatus,
+  HttpCode,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -6,8 +15,10 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Controller('users')
 @ApiTags('users')
@@ -28,24 +39,21 @@ export class UsersController {
     return this.usersService.me(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   @ApiOperation({ operationId: 'updateName' })
   @ApiOkResponse({ type: UpdateUserDto })
   updateName(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.updateName(+id, updateUserDto);
+    return this.usersService.updateName(id, updateUserDto);
   }
 
-  @Patch(':id/change-password')
+  @Put(':id/change-password')
   @ApiOperation({ operationId: 'changePassword' })
-  @ApiOkResponse({ type: String })
-  changePassword(
-    @Param('id') id: string,
-    @Body() body: { oldPassword: string; newPassword: string },
-  ) {
-    return this.usersService.changePassword(
-      +id,
-      body.oldPassword,
-      body.newPassword,
-    );
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'Password changed successfully',
+  })
+  changePassword(@Param('id') id: string, @Body() body: ChangePasswordDto) {
+    return this.usersService.changePassword(id, body);
   }
 }

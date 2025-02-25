@@ -41,20 +41,20 @@ export class TasksController {
   @ApiOperation({ operationId: 'findTaskById' })
   @ApiOkResponse({ type: TaskEntity })
   findOne(@Param('id') id: string) {
-    return this.tasksService.findOne(+id);
+    return this.tasksService.findOne(id);
   }
 
   @Patch(':id')
   @ApiOperation({ operationId: 'updateTask' })
   @ApiOkResponse({ type: TaskEntity })
   update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.tasksService.update(+id, updateTaskDto);
+    return this.tasksService.update(id, updateTaskDto);
   }
 
   @Delete(':id')
   @ApiOperation({ operationId: 'removeTask' })
   @ApiOkResponse({ type: TaskEntity })
   remove(@Param('id') id: string) {
-    return this.tasksService.remove(+id);
+    return this.tasksService.remove(id);
   }
 }

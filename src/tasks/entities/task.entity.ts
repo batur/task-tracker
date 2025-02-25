@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class TaskEntity implements Task {
   @ApiProperty()
-  id: number;
+  id: string;
 
   @ApiProperty()
   title: string;
@@ -25,5 +25,5 @@ export class TaskEntity implements Task {
   updatedAt: Date;
 
   @ApiProperty()
-  authorId: number;
+  authorId: string;
 }

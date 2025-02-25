@@ -3,15 +3,16 @@ import { Status } from '@prisma/client';
 import {
   IsEnum,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   IsString,
+  MinLength,
 } from 'class-validator';
 
 export class CreateTaskDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  @MinLength(5)
   title: string;
 
   @ApiProperty()
@@ -20,9 +21,9 @@ export class CreateTaskDto {
   description: string;
 
   @ApiPropertyOptional()
-  @IsNumber()
+  @IsString()
   @IsOptional()
-  authorId: number;
+  authorId: string;
 
   @ApiPropertyOptional({
     enum: Status,
