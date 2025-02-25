@@ -1,9 +1,15 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
+import { AppModule } from './app.module';
+
+import { useContainer } from 'class-validator';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe());
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
   const config = new DocumentBuilder()
     .setTitle('Task Tracker API')
     .setDescription('The Task Tracker API description')

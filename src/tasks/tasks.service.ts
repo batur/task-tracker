@@ -7,15 +7,15 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class TasksService {
   constructor(private prisma: PrismaService) {}
 
-  create(createTaskDto: CreateTaskDto) {
+  async create(createTaskDto: CreateTaskDto) {
     return this.prisma.task.create({ data: createTaskDto });
   }
 
-  findAll() {
+  async findAll() {
     return this.prisma.task.findMany();
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return this.prisma.task.findUnique({
       where: {
         id: id,
@@ -23,14 +23,14 @@ export class TasksService {
     });
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
+  async update(id: number, updateTaskDto: UpdateTaskDto) {
     return this.prisma.task.update({
       where: { id },
       data: updateTaskDto,
     });
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return this.prisma.task.delete({
       where: { id },
     });
