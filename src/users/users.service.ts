@@ -43,8 +43,10 @@ export class UsersService {
     };
   }
 
-  me(id: number) {
-    return `This action returns a #${id} user`;
+  async me(id: string) {
+    return this.prisma.user.findUnique({
+      where: { id },
+    });
   }
 
   async updateName(id: string, updateUserDto: UpdateUserDto) {
